@@ -68,6 +68,18 @@ type RuntimeOptions struct {
 	Socks5NetWork     *string            `json:"socks5NetWork" xml:"socks5NetWork"`
 	KeepAlive         *bool              `json:"keepAlive" xml:"keepAlive"`
 	ExtendsParameters *ExtendsParameters `json:"extendsParameters,omitempty" xml:"extendsParameters,omitempty"`
+
+	// WebSocket Specific Configuration
+	WebSocketPingInterval      *int        `json:"webSocketPingInterval" xml:"webSocketPingInterval"`           // Ping 间隔（毫秒）
+	WebSocketPongTimeout       *int        `json:"webSocketPongTimeout" xml:"webSocketPongTimeout"`             // Pong 超时（毫秒）
+	WebSocketMaxMessageSize    *int        `json:"webSocketMaxMessageSize" xml:"webSocketMaxMessageSize"`       // 最大消息大小（字节）
+	WebSocketEnableReconnect   *bool       `json:"webSocketEnableReconnect" xml:"webSocketEnableReconnect"`     // 是否启用自动重连
+	WebSocketReconnectInterval *int        `json:"webSocketReconnectInterval" xml:"webSocketReconnectInterval"` // 重连间隔（毫秒）
+	WebSocketMaxReconnectTimes *int        `json:"webSocketMaxReconnectTimes" xml:"webSocketMaxReconnectTimes"` // 最大重连次数
+	WebSocketWriteTimeout      *int        `json:"webSocketWriteTimeout" xml:"webSocketWriteTimeout"`           // 写入超时（毫秒）
+	WebSocketHandshakeTimeout  *int        `json:"webSocketHandshakeTimeout" xml:"webSocketHandshakeTimeout"`   // 握手超时（毫秒）
+	WebSocketEnableCompression *bool       `json:"webSocketEnableCompression" xml:"webSocketEnableCompression"` // 是否启用压缩
+	WebSocketHandler           interface{} `json:"-" xml:"-"`                                                   // WebSocket 消息处理器（不序列化）
 }
 
 var processStartTime int64 = time.Now().UnixNano() / 1e6
@@ -217,6 +229,56 @@ func (s *RuntimeOptions) SetKeepAlive(v bool) *RuntimeOptions {
 
 func (s *RuntimeOptions) SetExtendsParameters(v *ExtendsParameters) *RuntimeOptions {
 	s.ExtendsParameters = v
+	return s
+}
+
+func (s *RuntimeOptions) SetWebSocketPingInterval(v int) *RuntimeOptions {
+	s.WebSocketPingInterval = &v
+	return s
+}
+
+func (s *RuntimeOptions) SetWebSocketPongTimeout(v int) *RuntimeOptions {
+	s.WebSocketPongTimeout = &v
+	return s
+}
+
+func (s *RuntimeOptions) SetWebSocketMaxMessageSize(v int) *RuntimeOptions {
+	s.WebSocketMaxMessageSize = &v
+	return s
+}
+
+func (s *RuntimeOptions) SetWebSocketEnableReconnect(v bool) *RuntimeOptions {
+	s.WebSocketEnableReconnect = &v
+	return s
+}
+
+func (s *RuntimeOptions) SetWebSocketReconnectInterval(v int) *RuntimeOptions {
+	s.WebSocketReconnectInterval = &v
+	return s
+}
+
+func (s *RuntimeOptions) SetWebSocketMaxReconnectTimes(v int) *RuntimeOptions {
+	s.WebSocketMaxReconnectTimes = &v
+	return s
+}
+
+func (s *RuntimeOptions) SetWebSocketWriteTimeout(v int) *RuntimeOptions {
+	s.WebSocketWriteTimeout = &v
+	return s
+}
+
+func (s *RuntimeOptions) SetWebSocketHandshakeTimeout(v int) *RuntimeOptions {
+	s.WebSocketHandshakeTimeout = &v
+	return s
+}
+
+func (s *RuntimeOptions) SetWebSocketEnableCompression(v bool) *RuntimeOptions {
+	s.WebSocketEnableCompression = &v
+	return s
+}
+
+func (s *RuntimeOptions) SetWebSocketHandler(v interface{}) *RuntimeOptions {
+	s.WebSocketHandler = v
 	return s
 }
 
