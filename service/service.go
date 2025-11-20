@@ -78,8 +78,7 @@ type RuntimeOptions struct {
 	WebSocketMaxReconnectTimes *int        `json:"webSocketMaxReconnectTimes" xml:"webSocketMaxReconnectTimes"` // 最大重连次数
 	WebSocketWriteTimeout      *int        `json:"webSocketWriteTimeout" xml:"webSocketWriteTimeout"`           // 写入超时（毫秒）
 	WebSocketHandshakeTimeout  *int        `json:"webSocketHandshakeTimeout" xml:"webSocketHandshakeTimeout"`   // 握手超时（毫秒）
-	WebSocketEnableCompression *bool       `json:"webSocketEnableCompression" xml:"webSocketEnableCompression"` // 是否启用压缩
-	WebSocketHandler           interface{} `json:"-" xml:"-"`                                                   // WebSocket 消息处理器（不序列化）
+	WebSocketHandler           interface{} `json:"-" xml:"-"`                                                   // WebSocket 消息处理器（不序列化），应使用 dara.WebSocketHandler 类型
 }
 
 var processStartTime int64 = time.Now().UnixNano() / 1e6
@@ -269,11 +268,6 @@ func (s *RuntimeOptions) SetWebSocketWriteTimeout(v int) *RuntimeOptions {
 
 func (s *RuntimeOptions) SetWebSocketHandshakeTimeout(v int) *RuntimeOptions {
 	s.WebSocketHandshakeTimeout = &v
-	return s
-}
-
-func (s *RuntimeOptions) SetWebSocketEnableCompression(v bool) *RuntimeOptions {
-	s.WebSocketEnableCompression = &v
 	return s
 }
 
