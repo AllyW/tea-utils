@@ -72,7 +72,6 @@ type RuntimeOptions struct {
 	// WebSocket Specific Configuration
 	WebSocketPingInterval      *int        `json:"webSocketPingInterval" xml:"webSocketPingInterval"`           // Ping 间隔（毫秒）
 	WebSocketPongTimeout       *int        `json:"webSocketPongTimeout" xml:"webSocketPongTimeout"`             // Pong 超时（毫秒）
-	WebSocketMaxMessageSize    *int        `json:"webSocketMaxMessageSize" xml:"webSocketMaxMessageSize"`       // 最大消息大小（字节）
 	WebSocketEnableReconnect   *bool       `json:"webSocketEnableReconnect" xml:"webSocketEnableReconnect"`     // 是否启用自动重连
 	WebSocketReconnectInterval *int        `json:"webSocketReconnectInterval" xml:"webSocketReconnectInterval"` // 重连间隔（毫秒）
 	WebSocketMaxReconnectTimes *int        `json:"webSocketMaxReconnectTimes" xml:"webSocketMaxReconnectTimes"` // 最大重连次数
@@ -238,11 +237,6 @@ func (s *RuntimeOptions) SetWebSocketPingInterval(v int) *RuntimeOptions {
 
 func (s *RuntimeOptions) SetWebSocketPongTimeout(v int) *RuntimeOptions {
 	s.WebSocketPongTimeout = &v
-	return s
-}
-
-func (s *RuntimeOptions) SetWebSocketMaxMessageSize(v int) *RuntimeOptions {
-	s.WebSocketMaxMessageSize = &v
 	return s
 }
 
